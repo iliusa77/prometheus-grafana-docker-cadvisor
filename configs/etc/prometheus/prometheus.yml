@@ -1,0 +1,38 @@
+global:
+  scrape_interval:     15s
+  evaluation_interval: 15s
+  external_labels:
+      monitor: 'monitoring'
+  
+rule_files:
+    - "alert.rules" 
+
+scrape_configs:
+
+  - job_name: 'prometheus-server'
+
+    static_configs:
+      - targets:
+        - 127.0.0.1:9090
+        labels:
+          __metrics_path__: /prometheus/metrics
+          name: prometheus-server
+      - targets: 
+        - node-exporter:9100
+        labels:
+          name: node-exporter
+      - targets:
+        - cadvisor:8080
+        labels:
+          name: cAdvisor
+      - targets:
+        - 192.168.33.11:9104
+        labels:
+          __metrics_path__: /metrics
+          name: mysql-prometheus-client
+
+alerting:
+  alertmanagers:
+    - static_configs:
+      - targets: 
+        - alertmanager:9093
