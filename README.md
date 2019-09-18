@@ -38,6 +38,7 @@ docker-compose -f prometheus-server.yml up  -d
 # prometheus
 http://prometheus-server.local/prometheus/targets
 http://prometheus-server.local/prometheus/metrics
+http://prometheus-server.local/prometheus/alerts
 # grafana
 http://prometheus-server.local
 # cadvisor
